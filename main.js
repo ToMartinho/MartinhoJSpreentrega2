@@ -16,17 +16,20 @@ class Reserva{
 
 /* ----------------------------------------------------  FUNCIONES  ------------------------------------------------*/  
 // se crea funcion para verificar que no exista ya una resesrva para ese dia y horario
-const verificarReserva=(reservas,dia,horario)=>{
+function verificarReserva(reservas,dia,horario){
     // se buscan el dia y el horario
     reservas.forEach((reserva)=>{
-        if(reserva.dia == dia && reserva.horario == horario){
+        if((reserva.dia == dia) && (reserva.horario == horario)){
             // si el horario ya se encuentra reservado
-            return true;
-        }else{
-            // si el horario esta disponible
-            return false;
-        }
+            alert("el horario ya se encuentra reservado");
+            return disponible = false;            
+        }          
     })
+    if(disponible == true){
+        alert("la reserva se a verificado y realizado correctamente");
+        return disponible = true;
+    }
+    
 }
 
 // se crea funcion para cancelar la reserva
@@ -47,6 +50,7 @@ const cancelarReserva=(dni)=>{
 
 const reservas = [];
 let continuar = true;
+let disponible = true;
 
 /* ------------  FIN VARIABLES  ---------*/  
 
@@ -57,29 +61,23 @@ while(continuar){
     const dni = parseInt(prompt("Ingrese su DNI"));
     const dia = prompt("seleccione un dia entre lunes a domingo para su reserva");
     const horario = parseInt(prompt("un horario entre las 10hs hasta las 23hs para su reserva"));
-    if(reservas == 0){
+    
+    if(reservas.length == 0){
        reservas.push(new Reserva(nombre,apellido,dni,dia,horario));
        alert("dia y horario reservado correctamente");
-       console.log(reservas);
-    }else{
-       if(verificarReserva(reservas,dia,horario) == false){
-            reservas.push(new Reserva(nombre,apellido,dni,dia,horario));
-            alert("dia y horario se a reservado correctamente");
-            console.log(reservas);
-       }else{
-            alert("el dia y/o el horario se encuentran ocupados a continuacion elija un nuevo dia o horario");
-            const dia = prompt("seleccione un dia entre lunes a domingo para su reserva");
-            const horario = parseInt(prompt("un horario entre las 10hs hasta las 23hs para su reserva"));
-            console.log(dia);
-            console.log(horario);
-            console.log(reservas);
-       }
+    }else if(disponible == true){
+        verificarReserva(reservas,dia,horario);
+        console.log(disponible);        
+        reservas.push(new Reserva(nombre,apellido,dni,dia,horario));      
+    }else if(disponible == false){    //<-------------- no logro hacer que el programa ingrese en esta condicion cuando al retornar disponible de la funcion es false
+        alert("a continuacion cargue nuevamente el horario y el dia");
     }
-
+    console.log(reservas);
     continuar = confirm("Quiere realizar otra reserva?");
+}    
+       
 
-}
-console.log(reservas);
+    
 
 // se le pregunta al usuario si quere eliminar una reserva
 continuar = confirm("Quiere cancelar alguna reserva ? ");
@@ -88,7 +86,7 @@ while(continuar){
     cancelarReserva(reservaAeliminar);
     continuar = confirm("Quiere cancelar alguna otra reserva?");
 }
-console.log(reservas);
+
 
 
 /* ----------------------------------------------------  FIN MAIN  ----------------------------------------------------*/  
