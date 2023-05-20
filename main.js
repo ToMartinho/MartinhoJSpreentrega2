@@ -61,7 +61,7 @@ while(continuar){
     const dni = parseInt(prompt("Ingrese su DNI"));
     const dia = prompt("seleccione un dia entre lunes a domingo para su reserva");
     const horario = parseInt(prompt("un horario entre las 10hs hasta las 23hs para su reserva"));
-    
+    verificarReserva(reservas,dia,horario);
     if(reservas.length == 0){
        reservas.push(new Reserva(nombre,apellido,dni,dia,horario));
        alert("dia y horario reservado correctamente");
@@ -69,8 +69,14 @@ while(continuar){
         verificarReserva(reservas,dia,horario);
         console.log(disponible);        
         reservas.push(new Reserva(nombre,apellido,dni,dia,horario));      
-    }else if(disponible == false){    //<-------------- no logro hacer que el programa ingrese en esta condicion cuando al retornar disponible de la funcion es false
+    }else if(disponible == false){ 
         alert("a continuacion cargue nuevamente el horario y el dia");
+        const dia = prompt("seleccione un dia entre lunes a domingo para su reserva");
+        const horario = parseInt(prompt("un horario entre las 10hs hasta las 23hs para su reserva"));
+        alert("luego de la verificacion y cambio de horario y dia reserva realizada de manera exitosa");
+        disponible = confirm("desea confirmar el dia y horario ingresado")
+        reservas.push(new Reserva(nombre,apellido,dni,dia,horario));
+        
     }
     console.log(reservas);
     continuar = confirm("Quiere realizar otra reserva?");
