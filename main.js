@@ -69,13 +69,16 @@ while(continuar){
         verificarReserva(reservas,dia,horario);
         console.log(disponible);        
         reservas.push(new Reserva(nombre,apellido,dni,dia,horario));      
-    }else if(disponible == false){ 
-        alert("a continuacion cargue nuevamente el horario y el dia");
-        const dia = prompt("seleccione un dia entre lunes a domingo para su reserva");
-        const horario = parseInt(prompt("un horario entre las 10hs hasta las 23hs para su reserva"));
-        alert("luego de la verificacion y cambio de horario y dia reserva realizada de manera exitosa");
-        disponible = confirm("desea confirmar el dia y horario ingresado")
-        reservas.push(new Reserva(nombre,apellido,dni,dia,horario));
+    }else if(disponible == false){
+        while(disponible == false){
+            alert("a continuacion cargue nuevamente el horario y el dia");
+            const dia = prompt("seleccione un dia entre lunes a domingo para su reserva");
+            const horario = parseInt(prompt("un horario entre las 10hs hasta las 23hs para su reserva"));
+            alert("luego de la verificacion y cambio de horario y dia reserva realizada de manera exitosa");
+            disponible = confirm("desea confirmar el dia y horario ingresado")
+            reservas.push(new Reserva(nombre,apellido,dni,dia,horario));
+        }
+        
         
     }
     console.log(reservas);
